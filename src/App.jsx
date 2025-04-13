@@ -8,10 +8,13 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import ProfilePage from './Components/ProfilePage'; // Import ProfilePage
 import { useEffect } from 'react';
 import { auth } from './firebaseConfig'; // adjust if needed
+import { Routes, Route } from 'react-router-dom';
+import { addDoc, collection } from 'firebase/firestore';
 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isPfpIn, setIsPfpIn] = useState(false);
   const [ingredientInput, setIngredientInput] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -19,7 +22,31 @@ function App() {
   const [isLoading, setIsLoading] = useState(false); 
   const [page, setPage] = useState(1); // To track the page number for pagination
   const [userName, setUserName] = useState('');
+  const [likedRecipes, setLikedRecipes] = useState([]);
   
+  
+  const handleLikeRecipe = async (recipe) => {
+    if (!auth.currentUser) {
+      console.log("User is not logged in.");
+      return;
+    }
+  
+    const userId = auth.currentUser.uid;
+  
+    try {
+      // Store only the recipe title (name) and userId for now.
+      await addDoc(collection(db, 'favorites'), {
+        userId,
+        title: recipe.title,  // Storing just the title
+        recipeId: recipe.id,  // Store the recipe ID to reference later
+      });
+  
+      console.log("Recipe added to favorites");
+    } catch (error) {
+      console.error("Error adding recipe to favorites:", error);
+    }
+  };
+
   const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
@@ -28,6 +55,8 @@ function App() {
       setUserName(displayName || 'Friend');
     }
   }, [isLoggedIn]);
+
+  
 
   // Handle create account (redirect to a new component or page)
   const getImageFromPexels = async (query) => {
@@ -178,52 +207,66 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <img src="/images/pantry_pal_logo.png" alt="Pandy" />
-      <h1 style={{ fontFamily: "'ADLaM Display', sans-serif", color: 'rgba(124, 106, 10, 1)' }}>
-       Welcome, {userName}!
-     </h1>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div className="App">
+            <img src="/images/pantry_pal_logo.png" alt="Pandy" />
+            <h1 style={{ fontFamily: "'ADLaM Display', sans-serif", color: 'rgba(124, 106, 10, 1)' }}>
+              Welcome, {userName}!
+            </h1>
 
-      <h2 style={{ fontFamily: "'ADLaM Display', sans-serif", color: 'rgba(99, 53, 27, 1)' }}>
-        Your Friendly College Cooking Assistant!
-      </h2>
-      
-      <div className="search-container">
-        <input
-          type="text"
-          value={ingredientInput}
-          onChange={(e) => setIngredientInput(e.target.value)}
-          placeholder="e.g., tomato, cheese, pasta, etc... (comma separated)"
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
+            <h2 style={{ fontFamily: "'ADLaM Display', sans-serif", color: 'rgba(99, 53, 27, 1)' }}>
+              Your Friendly College Cooking Assistant!
+            </h2>
 
-      {/* Profile Icon in the upper right corner */}
-      <div className="profile-icon" onClick={() => navigate('./Components/ProfilePage')}>
-        <img src="/images/pfp.jpg" alt="Profile" />
-      </div>
+            <div className="search-container">
+              <input
+                type="text"
+                value={ingredientInput}
+                onChange={(e) => setIngredientInput(e.target.value)}
+                placeholder="e.g., tomato, cheese, pasta, etc... (comma separated)"
+              />
+              <button onClick={handleSearch}>Search</button>
+            </div>
 
-      {isLoading && <div className="spinner"></div>}
-      {error && <p className="error">{error}</p>}
+            <div className="profile-icon" onClick={() => navigate('/profile')}>
+              <img src="/images/pfp.jpg" alt="Profile" />
+            </div>
 
-      <div className="recipes-grid">
-        {recipes.map((recipe, index) => (
-          <RecipeCard
-            key={index}
-            recipe={recipe}
-            onClick={() => setSelectedRecipe(recipe)}
-          />
-        ))}
-      </div>
-      {recipes.length > 0 && (
-        <div className="load-more-container">
-          <button onClick={handleLoadMore} className="load-more-btn">
-            Load More Recipes
-          </button>
-        </div>
-      )}
-      <Modal recipe={selectedRecipe} onClose={() => setSelectedRecipe(null)} />
-    </div>
+            {isLoading && <div className="spinner"></div>}
+            {error && <p className="error">{error}</p>}
+
+            <div className="recipes-grid">
+              {recipes.map((recipe, index) => (
+                <RecipeCard
+                  key={index}
+                  recipe={recipe}
+                  onClick={() => setSelectedRecipe(recipe)}
+                />
+              ))}
+            </div>
+
+            {recipes.length > 0 && (
+              <div className="load-more-container">
+                <button onClick={handleLoadMore} className="load-more-btn">
+                  Load More Recipes
+                </button>
+                {isLoading && <div className="spinner"></div>}
+              </div>
+            )}
+            <Modal recipe={selectedRecipe} onClose={() => setSelectedRecipe(null)} />
+          </div>
+        }
+      />
+      <Route path="/ProfilePage" element={<ProfilePage userName={userName} />} />
+      <Route path="/ProfilePage" element={<ProfilePage userName={userName} />} />
+      <Route path="/ProfilePage" element={<ProfilePage userName={userName} userId={auth.currentUser?.uid} />} />
+
+
+
+    </Routes>
   );
 }
 

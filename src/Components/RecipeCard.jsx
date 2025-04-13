@@ -6,6 +6,7 @@ function RecipeCard({ recipe, onClick }) {
 
   const toggleLike = (e) => {
     e.stopPropagation(); // prevent modal from opening on heart click
+    console.log("name of recipe", recipe.title);
     setLiked((prev) => !prev);
   };
 
@@ -22,11 +23,11 @@ function RecipeCard({ recipe, onClick }) {
         className="recipe-image"
       />
       <div className="recipe-info">
-        <h3>{recipe.title}</h3>
-        <p>{recipe.description}</p>
-        <p>⏱️ Cook Time: {recipe.cook_time} mins</p>
-        <p>❤️ {recipe.likes} likes</p>
-      </div>
+  <h3>{recipe.title}</h3>
+  <p className="recipe-description">{recipe.description}</p>
+  <p className="recipe-cook-time">Cook time: {recipe.cook_time} mins</p>
+  <p className="recipe-likes">Likes: {recipe.likes}</p>
+</div>
     </div>
   );
 }

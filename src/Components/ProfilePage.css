@@ -1,0 +1,76 @@
+.profile-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 2rem;
+  background-color: #ECCAB8;
+  border-radius: 12px;
+  font-family: 'ADLaM Display', sans-serif;
+  text-align: center;
+}
+
+.profile-container h1 {
+  font-size: 2.2rem;
+  color: rgba(124, 106, 10, 1);
+  margin-bottom: 0.5rem;
+}
+
+.profile-container h2 {
+  font-size: 1.5rem;
+  color: rgba(99, 53, 27, 1);
+  margin-bottom: 1.5rem;
+}
+
+.liked-recipes-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.liked-recipes-list li {
+  background-color: #FEE7CD;
+  border: 2px solid rgba(99, 53, 27, 0.4);
+  border-radius: 10px;
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.liked-recipes-list li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(99, 53, 27, 0.2);
+}
+
+.liked-recipes-list h3 {
+  font-size: 1.3rem;
+  color: #63351B;
+  margin-bottom: 0.5rem;
+}
+
+.liked-recipes-list img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.liked-recipes-list p {
+  font-size: 1rem;
+  color: #4d3b2c;
+}
+
+/* Optional Back/Home Button */
+.profile-back-btn {
+  padding: 12px;
+  background-color: #59290d;
+  color: rgb(16, 12, 12);
+  border: 2px solid #59290d;
+  border-radius: 7px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 20px;
+}
+
+.profile-back-btn:hover {
+  background-color: #63351B;
+}

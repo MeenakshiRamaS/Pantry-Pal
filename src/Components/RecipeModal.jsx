@@ -48,25 +48,36 @@ const Modal = ({ recipe, onClose }) => {
           ×
         </button>
         <h2 style={{ color: '#63351B' }}>{recipe.title}</h2> {/* Updated title color */}
-        <img src={recipe.imageUrl} alt={recipe.title} style={{ width: '100%', borderRadius: '10px' }} />
-        <p><strong style={{ color: '#63351B' }}>Description:</strong> {recipe.description}</p> {/* Updated text color */}
-        <p><strong style={{ color: '#63351B' }}>⏱️ Cook Time:</strong> {recipe.cook_time} mins</p>
-        <p><strong style={{ color: '#63351B' }}>❤️ Likes:</strong> {recipe.likes}</p>
-      
-        <p><strong style={{ color: '#63351B' }}>🧑‍🍳 Ingredients You Have:</strong></p>
-        <ul>
-          {recipe.ingredients_present.map((ing, idx) => (
-            <li key={idx} style={{ color: '#472c15' }}>{ing}</li> 
-          ))}
-        </ul>
-        <p><strong style={{ color: '#63351B' }}>❌ Missing Ingredients:</strong></p>
-        <ul>
-          {recipe.missing_ingredients.map((ing, idx) => (
-            <li key={idx} style={{ color: '#472c15' }}>{ing}</li> 
-          ))}
-        </ul>
-        <p><strong style={{ color: '#63351B' }}>🍳 Instructions:</strong></p>
-        <p>{recipe.recipe}</p>
+        <img src={recipe.imageUrl} alt={recipe.title} style={{ width: '90%', borderRadius: '10px' }} />
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
+  {/* Left Column */}
+  <div style={{ flex: 1, minWidth: '250px', textAlign: 'left' }}>
+    <p><strong style={{ color: '#63351B' }}>Description:</strong> {recipe.description}</p>
+    <p><strong style={{ color: '#63351B' }}>⏱️ Cook Time:</strong> {recipe.cook_time} mins</p>
+    <p><strong style={{ color: '#63351B' }}>❤️ Likes:</strong> {recipe.likes}</p>
+
+    <p><strong style={{ color: '#63351B' }}>🧑‍🍳 Ingredients You Have:</strong></p>
+    <ul style={{ listStylePosition: 'inside', paddingLeft: 0 }}>
+      {recipe.ingredients_present.map((ing, idx) => (
+        <li key={idx} style={{ color: '#472c15', marginBottom: '4px' }}>{ing}</li>
+      ))}
+    </ul>
+
+    <p><strong style={{ color: '#63351B' }}>❌ Missing Ingredients:</strong></p>
+    <ul style={{ listStylePosition: 'inside', paddingLeft: 0 }}>
+      {recipe.missing_ingredients.map((ing, idx) => (
+        <li key={idx} style={{ color: '#472c15', marginBottom: '4px' }}>{ing}</li>
+      ))}
+    </ul>
+  </div>
+
+  {/* Right Column */}
+  <div style={{ flex: 1, minWidth: '250px', textAlign: 'left' }}>
+    <p><strong style={{ color: '#63351B' }}>🍳 Instructions:</strong></p>
+    <p>{recipe.recipe}</p>
+  </div>
+</div>
+
       </div>
     </div>
   );

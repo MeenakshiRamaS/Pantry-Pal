@@ -18,6 +18,12 @@ html, body, #root {
   align-items: center;
 }
 
+body {
+  background-color: #ECCAB8; /* or any color you like */
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
 input {
   padding: 1.1em;
   margin-right: 0.5em;
@@ -95,6 +101,13 @@ button:hover {
   margin: 4px 0;
   font-size: 14px;
 }
+
+.recipe-info .recipe-description,
+.recipe-info .recipe-cook-time,
+.recipe-info .recipe-likes {
+  color: #604a3e; /* Change this to your desired color */
+}
+
 
 /* Heart icon */
 .heart-icon {
