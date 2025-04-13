@@ -1,0 +1,145 @@
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.Login {
+  padding: 2rem;
+  text-align: center;
+  min-height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #ECCAB8;
+  font-family: 'ADLaM Display', sans-serif;
+}
+
+.login-logo {
+  width: 180px;
+  margin-bottom: 20px;
+}
+
+.title {
+  color: rgba(124, 106, 10, 1);
+  margin-bottom: 0;
+}
+
+.login-title {
+  font-size: 2rem;
+  color: #EB6424;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.login-subtitle {
+  font-size: 1.5rem;
+  color: rgba(99, 53, 27, 1);
+  margin-bottom: 30px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  gap: 0px;
+  width: 100%;
+  max-width: 100px;
+}
+
+.login-form input {
+  padding: 12px;
+  border: 2px solid rgba(124, 106, 10, 0.5);
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  margin-bottom: -0.5rem;  
+}
+
+.login-form button {
+  padding: 12px;
+  background-color: #EB6424;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 2px solid #59290d;
+  border-radius: 7px;
+  margin-top: 20px;
+}
+
+.login-form button:hover {
+  background-color: #63351B;
+}
+
+.login-error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+button {
+  padding: 1em 1.5em;
+  background-color: #EB6424;
+  color: #59290d;
+  border: 2px solid #59290d;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-top: 0.3rem;
+  font-size: 20px;
+  display: block;
+  margin: 0 auto;
+}
+
+button:hover {
+  background-color: rgb(231, 157, 104);
+  transform: scale(1.03);
+  border-color: #63351B;
+}
+
+.spinner {
+  border: 4px solid #e3d8c34d;
+  border-top: 4px solid #EB6424;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin-left: 10px; /* Space between input and spinner */
+}
+
+/* Spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.create-account-btn {
+  padding: 12px;
+  background-color: #59290d;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 2px solid #59290d;
+  border-radius: 7px;
+  margin-top: 20px;
+}
+
+.create-account-btn:hover {
+  background-color: #63351B;
+}
