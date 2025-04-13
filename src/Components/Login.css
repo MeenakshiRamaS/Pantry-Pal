@@ -60,11 +60,12 @@ html, body, #root {
 
 .login-form input {
   padding: 12px;
-  border: 2px solid rgba(124, 106, 10, 0.5);
+  border: 2px solid rgba(99, 53, 27, 1);
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
-  margin-bottom: -0.5rem;  
+  margin-bottom: -0.5rem; 
+  background-color: #FEE7CD; 
 }
 
 .login-form button {
@@ -111,7 +112,7 @@ button:hover {
 }
 
 .spinner {
-  border: 4px solid #e3d8c34d;
+  border: 4px solid #6c6359;
   border-top: 4px solid #EB6424;
   border-radius: 50%;
   width: 20px;

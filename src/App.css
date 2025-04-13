@@ -23,7 +23,7 @@ input {
   margin-right: 0.5em;
   border: 1px solid black;
   border-radius: 6px;
-  background-color: #ccc;
+  background-color: #FEE7CD;
   color: #63351B;
   width: 450px;
   margin-bottom: 1rem;
@@ -199,6 +199,7 @@ button:hover {
   left: 1400px; /* Keep the same positioning */
   width: 50px;
   height: 50px;
+  background-image: url('/public/images/profile_icon.png');
   background-color: #888;  /* Slightly lighter grey for a softer look */
   border-radius: 50%;  /* Circle shape */
   display: flex;
@@ -219,14 +220,20 @@ button:hover {
   background-color: #555;  /* Darken the background color on hover */
 }
 
-/* Profile Icon Placeholder for Emoji */
-.profile-icon::before {
-  content: "👤";  /* You can replace this with a custom SVG icon or other emojis */
-  font-size: 28px;  /* Increase emoji size for better visibility */
+.profile-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px; /* Adjust size */
+  height: 40px; /* Adjust size */
+  border-radius: 50%; /* Makes the image circular */
+  overflow: hidden;
 }
 
-.profile-icon::before {
-  content: "👤"; /* Use an emoji or any profile icon */
+.profile-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the circle */
 }
 
 

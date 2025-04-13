@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import './Login.css';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig'; // Adjust path if needed
+import CreateAccountModal from './CreateAccountModal'; // Make sure this path is correct
 
-function Login({ onLoginSuccess, onCreateAccount }) { // Add onCreateAccount prop
-  const [email, setEmail] = useState(''); // change "username" to "email"
+
+function Login({ onLoginSuccess }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false); // 🔹 Modal toggle state
+
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -51,9 +57,17 @@ function Login({ onLoginSuccess, onCreateAccount }) { // Add onCreateAccount pro
       </form>
 
       {/* Create Account Button */}
-      <button onClick={onCreateAccount} className="create-account-btn">
+      <button
+        onClick={() => setShowCreateModal(true)} // 🔹 Trigger modal open
+        className="create-account-btn"
+      >
         Create Account
       </button>
+
+      {/* 🔹 Conditionally Render Modal */}
+      {showCreateModal && (
+        <CreateAccountModal onClose={() => setShowCreateModal(false)} />
+      )}
     </div>
   );
 }

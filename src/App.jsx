@@ -4,6 +4,11 @@ import axios from 'axios';
 import RecipeCard from './Components/RecipeCard';
 import Modal from './Components/RecipeModal';
 import Login from './Components/Login';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import ProfilePage from './Components/ProfilePage'; // Import ProfilePage
+import { useEffect } from 'react';
+import { auth } from './firebaseConfig'; // adjust if needed
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,7 +18,18 @@ function App() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false); 
   const [page, setPage] = useState(1); // To track the page number for pagination
+  const [userName, setUserName] = useState('');
+  
+  const navigate = useNavigate(); // Initialize navigate function
 
+  useEffect(() => {
+    if (isLoggedIn && auth.currentUser) {
+      const displayName = auth.currentUser.displayName;
+      setUserName(displayName || 'Friend');
+    }
+  }, [isLoggedIn]);
+
+  // Handle create account (redirect to a new component or page)
   const getImageFromPexels = async (query) => {
     const API_KEY = 'tSDaPmQWr36LCAgW0lNLtXCDLpPNWZSMBkDWgNSvdAGuH15OSNFo89lS';
     const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=1`;
@@ -43,7 +59,7 @@ function App() {
     if (!ingredientInput.trim()) return;
 
     setIsLoading(true);
-    setPage(1); // Reset page to 1 when searching for new ingredients
+    setPage(1);
 
     try {
       const response = await axios.post(
@@ -65,7 +81,7 @@ function App() {
               estimated cook time in minutes(variable name = "cook_time"),
               popularity (variable name = "likes"), and
               the full recipe for the dish (variable name = "recipe"). 
-              Respond with ONLY valid JSON — no explanation or intro, just a JSON array of recipe objects.`
+              Respond with ONLY valid JSON — no explanation or intro, just a JSON array of recipe objects.` 
             }
           ],
           temperature: 0.7
@@ -98,7 +114,6 @@ function App() {
     }
   };
 
-  // Function for loading more recipes (12 more) when the button is clicked
   const handleLoadMore = async () => {
     if (!ingredientInput.trim()) return;
 
@@ -125,7 +140,7 @@ function App() {
               estimated cook time in minutes(variable name = "cook_time"),
               popularity (variable name = "likes"), and
               the full recipe for the dish (variable name = "recipe"). 
-              Respond with ONLY valid JSON — no explanation or intro, just a JSON array of recipe objects.`
+              Respond with ONLY valid JSON — no explanation or intro, just a JSON array of recipe objects.` 
             }
           ],
           temperature: 0.7
@@ -148,7 +163,6 @@ function App() {
         })
       );
 
-      // Add new recipes while keeping only 12 at a time
       setRecipes((prevRecipes) => [...prevRecipes, ...recipesWithImages]);
       setError(null);
     } catch (err) {
@@ -167,8 +181,9 @@ function App() {
     <div className="App">
       <img src="/images/pantry_pal_logo.png" alt="Pandy" />
       <h1 style={{ fontFamily: "'ADLaM Display', sans-serif", color: 'rgba(124, 106, 10, 1)' }}>
-        Pantry Pal
-      </h1>
+       Welcome, {userName}!
+     </h1>
+
       <h2 style={{ fontFamily: "'ADLaM Display', sans-serif", color: 'rgba(99, 53, 27, 1)' }}>
         Your Friendly College Cooking Assistant!
       </h2>
@@ -184,9 +199,8 @@ function App() {
       </div>
 
       {/* Profile Icon in the upper right corner */}
-      <div className="profile-icon">
-      <img src="/images/profile_icon.png" alt="Profile" />
-
+      <div className="profile-icon" onClick={() => navigate('./Components/ProfilePage')}>
+        <img src="/images/pfp.jpg" alt="Profile" />
       </div>
 
       {isLoading && <div className="spinner"></div>}
